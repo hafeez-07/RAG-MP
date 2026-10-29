@@ -43,10 +43,39 @@ python DataExtraction/shlokas/parser.py
 python DataExtraction/shlokas/ocr_parser.py
 ```
 
+
+
 Dependencies
 ------------
 - Python packages: `pandas`, `requests`, `beautifulsoup4`, `playwright`, `tqdm`, `easyocr`.
 - Playwright requires browser install: `playwright install` (after `pip install playwright`).
+
+Local RAG API and frontend
+--------------------------
+The recovered frontend can use the existing medicinal-plants RAG pipeline through the local API.
+The API requires the Python packages used by `embedding/query_rag.py`, including `chromadb` and
+`ollama`, and requires Ollama to be running with the configured embedding and generation models.
+
+The reported populated Chroma database can be selected without adding its machine-specific path
+to tracked source code:
+
+```powershell
+$env:CHROMA_DB_PATH = 'D:\RAG-MP\vector_db'
+python -m backend.api
+```
+
+Run the frontend in a second terminal:
+
+```powershell
+cd frontend
+Copy-Item .env.example .env.local
+npm install
+npm run dev
+```
+
+`.env.local` enables the real backend through `VITE_USE_REAL_BACKEND=true` and uses the Vite
+development proxy at `/api/rag-query`. Local environment files are ignored by Git. The API
+defaults to the repository-relative `vector_db` directory when `CHROMA_DB_PATH` is not set.
 
 Contact / Notes
 ---------------

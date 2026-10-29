@@ -1,9 +1,18 @@
+import os
 from pathlib import Path
 import chromadb
 import ollama
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-VECTOR_DB_DIR = BASE_DIR / "vector_db"
+configured_vector_db = os.environ.get("CHROMA_DB_PATH")
+if configured_vector_db:
+    VECTOR_DB_DIR = Path(configured_vector_db).expanduser()
+    if not VECTOR_DB_DIR.is_dir():
+        raise FileNotFoundError(
+            f"CHROMA_DB_PATH does not exist or is not a directory: {VECTOR_DB_DIR}"
+        )
+else:
+    VECTOR_DB_DIR = BASE_DIR / "vector_db"
 
 COLLECTION_NAME = "medicinal_plants"
 EMBEDDING_MODEL = "qwen3-embedding:0.6b"

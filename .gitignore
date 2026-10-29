@@ -1,0 +1,19 @@
+# Local ChromaDB databases and backups
+/vector_db/
+/vector_db_backup_before_runtime/
+/vector_db_compat_test/
+/vector_db_after_runtime_test/
+
+# Python environment and cache
+/.venv/
+**/__pycache__/
+*.py[cod]
+
+# Frontend dependencies and build output
+/frontend/node_modules/
+/frontend/dist/
+
+# Local environment files and secrets
+.env
+.env.*
+!/frontend/.env.example

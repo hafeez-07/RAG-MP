@@ -7,7 +7,7 @@
  * ============================================================================
  * BACKEND INTEGRATION INSTRUCTIONS:
  * ----------------------------------------------------------------------------
- * Set `USE_REAL_BACKEND = true` (or configure VITE_USE_REAL_BACKEND=true in .env).
+ * Configure VITE_USE_REAL_BACKEND=true in .env to use the real backend.
  * The service will dispatch to POST /api/rag-query.
  * 
  * Request Payload:
@@ -32,7 +32,7 @@
  * ============================================================================
  */
 
-const USE_REAL_BACKEND = false;
+const USE_REAL_BACKEND = import.meta.env?.VITE_USE_REAL_BACKEND === 'true';
 const BACKEND_URL = import.meta.env?.VITE_RAG_API_URL || '/api/rag-query';
 
 const MOCK_BOTANICAL_KNOWLEDGE = [
